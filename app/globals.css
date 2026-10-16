@@ -1,0 +1,198 @@
+@import "tailwindcss";
+
+/* Class-based dark mode, matching the portfolio: <html class="dark">. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Geist Sans / Geist Mono are set as CSS variables on <body> in layout.js.
+ * Kept inside @theme inline so `font-sans` / `font-mono` resolve to them.
+ */
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, 'SF Mono',
+    Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/*
+ * Neutral (blue-free) gray scale.
+ * Tailwind v4 ships a blue-tinted gray which reads navy in dark mode.
+ * Overriding keeps every `gray-*` utility consistent with the portfolio.
+ */
+@theme {
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #e5e5e5;
+  --color-gray-300: #d4d4d4;
+  --color-gray-400: #a3a3a3;
+  --color-gray-500: #737373;
+  --color-gray-600: #525252;
+  --color-gray-700: #2e2e2e;
+  --color-gray-800: #1c1c1c;
+  --color-gray-900: #121212;
+  --color-gray-950: #0a0a0a;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --selection: #000000;
+  --selection-text: #ffffff;
+}
+
+.dark {
+  --background: #121212;
+  --foreground: #fafafa;
+  --selection: #fafafa;
+  --selection-text: #000000;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: var(--selection);
+  color: var(--selection-text);
+}
+
+/* Caret + form controls follow the selection colour. */
+input,
+textarea,
+select {
+  caret-color: var(--selection);
+  accent-color: var(--selection);
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  --tw-ring-color: var(--foreground);
+  --tw-ring-offset-color: transparent;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline-color: var(--foreground);
+}
+
+/* Custom scrollbar styles, identical to the portfolio. */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #1c1c1c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 0.5rem;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #525252;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #737373;
+}
+
+/* Halftone dot separator, used as a section break. */
+.halftone {
+  background-image: radial-gradient(currentColor 1px, transparent 1px);
+  background-size: 6px 6px;
+  color: var(--foreground);
+}
+
+/* Compact keyboard-key chip, matching the portfolio's mono badge style. */
+kbd {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  line-height: 1;
+  padding: 0.3rem 0.4rem;
+  border: 1px solid var(--color-gray-300);
+  border-radius: 0.25rem;
+  background: var(--color-gray-100);
+  color: var(--color-gray-600);
+  white-space: nowrap;
+}
+
+.dark kbd {
+  border-color: var(--color-gray-700);
+  background: var(--color-gray-800);
+  color: var(--color-gray-400);
+}
+
+@keyframes flash-in {
+  from {
+    border-color: var(--color-gray-900);
+    background-color: color-mix(in srgb, var(--color-gray-900) 6%, transparent);
+  }
+  to {
+    border-color: var(--color-gray-200);
+    background-color: transparent;
+  }
+}
+
+.dark .flash-in {
+  animation-name: flash-in-dark;
+}
+
+@keyframes flash-in-dark {
+  from {
+    border-color: var(--color-gray-50);
+    background-color: color-mix(in srgb, var(--color-gray-50) 8%, transparent);
+  }
+  to {
+    border-color: var(--color-gray-800);
+    background-color: transparent;
+  }
+}
+
+.flash-in {
+  animation: flash-in 3s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fade-in 0.15s ease-out;
+}
+
+.rise-in {
+  animation: rise-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
