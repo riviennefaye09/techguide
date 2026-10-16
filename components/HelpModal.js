@@ -33,6 +33,16 @@ const GROUPS = [
         desc: 'Critical review with problems ranked by importance.',
       },
       {
+        keys: ['Ctrl', 'Alt', 'H', 'then', 'F'],
+        name: 'Fix',
+        desc: 'An error, stack trace or failing output - get the likely cause and the smallest change that fixes it.',
+      },
+      {
+        keys: ['Ctrl', 'Alt', 'F'],
+        name: 'Fix',
+        desc: 'One-keystroke version. Use this with terminal output, where every extra keystroke matters.',
+      },
+      {
         keys: ['Ctrl', 'Alt', 'M'],
         name: 'Ask',
         desc: 'One-keystroke version of Ask. Prefer it when it counts — the chord has to land twice inside 2 seconds.',
